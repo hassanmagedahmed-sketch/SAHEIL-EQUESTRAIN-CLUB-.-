@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saheil — Design 03</title>
+<style>
+:root{--ink:#17110d;--brown:#2b1b12;--paper:#f1e9de;--cream:#fffaf2;--gold:#c79a5c;--muted:#927d69;--line:#3d2b20;--green:#20d56b}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ink);color:var(--cream);font-family:Inter,Arial,sans-serif}a{text-decoration:none;color:inherit}button{font:inherit}
+.page{max-width:1440px;margin:auto;overflow:hidden;background:var(--ink)}
+.nav{position:sticky;top:0;z-index:50;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 34px;background:rgba(23,17,13,.9);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.08)}
+.brand{display:flex;align-items:center;gap:12px;font-size:17px;font-weight:900;letter-spacing:4px}.brand img{width:38px;height:38px;object-fit:contain}.brand small{font-size:8px;letter-spacing:2px;opacity:.6;display:block;margin-top:4px}
+.navlinks{display:flex;align-items:center;gap:7px}.navlinks a{padding:10px 12px;font-size:11px;letter-spacing:.8px;color:#eee;opacity:.9;border-radius:9px}.navlinks a:hover{background:rgba(255,255,255,.07);opacity:1}
+.globe{position:relative}.globe>button{border:1px solid rgba(255,255,255,.18);background:#fff0;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer}.menu{display:none;position:absolute;right:0;top:46px;background:#20150f;border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:8px;min-width:140px;box-shadow:0 18px 45px #0008}.menu button{display:block;width:100%;background:none;border:0;color:#fff;text-align:left;padding:9px 10px;border-radius:8px;cursor:pointer;font-size:12px}.menu button:hover{background:#ffffff10}.globe.open .menu{display:block}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;min-height:720px;border-bottom:1px solid rgba(255,255,255,.07)}.hero-copy{padding:110px 70px 80px;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle at 25% 20%,#5b3820 0,#2a1b12 34%,#17110d 72%);position:relative}.hero-copy:before{content:none}.kicker{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:900}.hero h1{font:normal clamp(58px,8vw,112px)/.87 Georgia,serif;letter-spacing:-5px;margin:18px 0}.hero h1 em{font-style:italic;color:#e6c99b}.hero p{max-width:570px;font-size:17px;line-height:1.8;color:#ccbcae;margin:0}.rank{display:inline-flex;align-items:center;gap:8px;width:max-content;margin:28px 0 0;padding:9px 13px;border:1px solid #c79a5c55;border-radius:999px;color:#e1c18f;font-size:11px;font-weight:800}.actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:30px}.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 18px;border-radius:10px;font-size:12px;font-weight:900;letter-spacing:.7px;border:1px solid #c9a47055;transition:.2s}.btn.primary{background:var(--gold);color:#1b120b;border-color:var(--gold)}.btn.secondary{background:#fff06;color:#fff}.btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px #0005}.hero-media{position:relative;overflow:hidden;background:#0e0b08}.hero-media img{width:100%;height:100%;object-fit:contain;background:#0e0b08}.hero-media:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#17110d55,#0000 35%),linear-gradient(180deg,#0000 65%,#0008)}.hero-badge{position:absolute;left:28px;bottom:28px;z-index:2;padding:14px 16px;background:#18110ddd;border:1px solid #fff2;border-radius:12px;backdrop-filter:blur(10px)}.hero-badge strong{display:block;font-size:18px;color:#f8e3c3}.hero-badge span{font-size:10px;color:#ccb9a8}
+.section{padding:80px 44px;border-bottom:1px solid rgba(255,255,255,.07)}.section-head{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:30px}.section-head h2{margin:0;font:normal clamp(42px,6vw,76px)/.9 Georgia,serif;letter-spacing:-3px}.section-head p{max-width:450px;color:#b9a89a;line-height:1.7;font-size:14px;margin:0}
+.experiences{display:grid;grid-template-columns:1.1fr .9fr .9fr;gap:14px}.experience{position:relative;min-height:410px;border:1px solid #fff1;border-radius:20px;overflow:hidden;background:#221710}.experience img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .55s}.experience:hover img{transform:scale(1.045)}.experience:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0000 45%,#000b 100%)}.experience-body{position:absolute;z-index:2;left:20px;right:20px;bottom:20px}.experience-body .num{font-size:10px;color:#d9b57b;letter-spacing:3px;font-weight:900}.experience h3{font:normal 36px/1 Georgia,serif;margin:7px 0}.experience .price{font-size:14px;font-weight:900;color:#fff}.experience .go{float:right;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#16100c;box-shadow:0 2px 8px #0002}.experience .go svg{width:15px;height:15px;display:block}
+.about{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;align-items:start}.about-copy h2{font:normal 58px/1 Georgia,serif;margin:0 0 18px}.about-copy p{color:#b9a89a;line-height:1.9;max-width:520px}.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.about-grid img{width:100%;height:220px;object-fit:cover;border-radius:14px;display:block}.about-grid img:first-child{grid-column:span 2;height:280px}
+.video{display:grid;grid-template-columns:1.45fr .55fr;gap:28px;align-items:stretch}.video-card{position:relative;border-radius:20px;overflow:hidden;min-height:350px;background:#050403}.video-card img{width:100%;height:100%;object-fit:cover;opacity:.7}.play{position:absolute;inset:0;display:grid;place-items:center}.play span{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#17100c;font-size:22px;box-shadow:0 15px 45px #0008}.video-copy{padding:30px;background:#24170f;border:1px solid #fff1;border-radius:20px;display:flex;flex-direction:column;justify-content:center}.video-copy h2{font:normal 48px/1 Georgia,serif;margin:0 0 14px}.video-copy p{line-height:1.8;color:#b9a89a}
+.custom{display:grid;grid-template-columns:1fr 1fr;gap:16px}.custom-card{padding:28px;border:1px solid #c79a5c44;background:linear-gradient(140deg,#2c1c13,#18110d);border-radius:18px}.custom-card h3{font:normal 34px Georgia,serif;margin:0 0 12px}.custom-card p{color:#c7b9ad;line-height:1.8;margin:0 0 20px}.custom-note{display:inline-block;margin-top:12px;color:#d5b37c;font-size:12px;font-weight:800;letter-spacing:1.2px}
+.payment{display:grid;grid-template-columns:1fr 1fr;gap:18px}.paybox{padding:26px;border:1px solid #fff1;background:#21160f;border-radius:18px}.payrow{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid #ffffff0d;font-size:13px}.payrow:last-child{border-bottom:0}.payname{color:#cfb899}.payval{font-weight:900;color:#fff}.socials{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.social{padding:10px 14px;border:1px solid #fff1;border-radius:999px;font-size:11px;color:#e7d8ca;background:#ffffff05}
+.footer{padding:45px 44px 80px;display:flex;align-items:flex-start;justify-content:space-between;gap:30px;flex-wrap:wrap;color:#9f8d7f}.footer strong{color:#fff}.wa{position:fixed;left:22px;bottom:22px;z-index:80;width:66px;height:66px;border-radius:50%;background:var(--green);display:grid;place-items:center;box-shadow:0 12px 25px #0006;border:4px solid #17110d}.wa img{width:34px;height:34px}.wa:hover{transform:scale(1.06);box-shadow:0 15px 35px #0008}
+.rtl{direction:rtl}.rtl .hero-copy,.rtl .section,.rtl .video-copy{text-align:right}.rtl .nav,.rtl .navlinks,.rtl .actions,.rtl .section-head,.rtl .footer{direction:rtl}.rtl .menu{right:auto;left:0}.rtl .menu button{text-align:right}.rtl .hero-copy:before{content:none}.rtl .experience-body{left:20px;right:20px}.rtl .experience .go{float:left}
+@media(max-width:980px){.navlinks a{display:none}.hero{grid-template-columns:1fr}.hero-media{min-height:490px}.experiences{grid-template-columns:1fr 1fr}.experience:first-child{grid-column:span 2}.about,.video,.custom,.payment{grid-template-columns:1fr}.section{padding:65px 22px}.hero-copy{padding:72px 28px}.footer{padding:35px 22px 70px}}
+@media(max-width:600px){.nav{padding:0 16px;height:68px}.brand{font-size:14px}.hero h1{font-size:61px}.hero-media{min-height:390px}.experiences{grid-template-columns:1fr}.experience:first-child{grid-column:auto}.experience{min-height:320px}.about-grid img,.about-grid img:first-child{height:210px}.wa{left:14px;bottom:14px;width:60px;height:60px}.wa img{width:31px;height:31px}.section-head{display:block}.section-head p{margin-top:15px}.footer{display:block}.pager{margin-top:18px}}
+
+.socials{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:26px}
+.social{display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid #ffffff16;background:#20140e;padding:11px 10px;border-radius:14px;font-size:11px;font-weight:800;color:#ead8bf;transition:.22s;text-align:center;box-shadow:inset 0 1px #ffffff08}
+.social:hover{transform:translateY(-3px);border-color:#c79a5c66;background:#2d1d13;box-shadow:0 12px 24px #0005}
+.social .brand-ico{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;flex:none;position:relative;overflow:hidden}
+.social .brand-ico svg{width:21px;height:21px;display:block}
+.social.instagram .brand-ico{background:radial-gradient(circle at 30% 110%,#ffd600 0 18%,#ff7a00 30%,#ff0069 58%,#d300c5 76%,#7638fa 100%)}
+.social.tiktok .brand-ico{background:#090909;border:1px solid #ffffff22}
+.social.facebook .brand-ico{background:#1877f2}
+.social .brand-name{display:flex;flex-direction:column;align-items:flex-start;line-height:1.1}.social .brand-handle{opacity:.58;font-size:9px;margin-top:3px}
+.tiktok-card{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px}
+.monthly{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 28px;border:1px solid #c79a5c55;background:linear-gradient(120deg,#2d1d13,#1a110c);border-radius:18px;margin-top:18px}
+.monthly strong{font-size:34px;color:#e7c894;display:block}
+.monthly span{color:#c7b9ad;font-size:12px;letter-spacing:.5px}
+.paymethod{display:flex;align-items:center;gap:12px}
+.paymethod .payicon{width:42px;height:42px;border-radius:12px;background:#f4e9db;color:#2b1b12;display:grid;place-items:center;font-weight:900}
+.video-wrap{display:grid;grid-template-columns:1.4fr .6fr;gap:20px;align-items:stretch}
+.video-embed{min-height:360px;border-radius:20px;overflow:hidden;background:#090604;border:1px solid #fff1;display:flex;align-items:center;justify-content:center}
+.video-embed blockquote{margin:0!important}
+.social-follow{display:grid;gap:10px}
+.social-follow a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;background:#24170f;border:1px solid #fff1;border-radius:12px}
+.social-follow a span:first-child{display:flex;align-items:center;gap:10px;font-weight:800}
+@media(max-width:760px){.socials{grid-template-columns:1fr}.video-wrap{grid-template-columns:1fr}.monthly{display:block}.monthly strong{margin-top:8px}}
+
+
+.tiktok-feature{max-width:1100px;margin:auto}.tiktok-frame{position:relative;min-height:620px;border-radius:26px;overflow:hidden;background:#080706;border:1px solid #ffffff14;box-shadow:0 25px 70px #0008}.tiktok-frame iframe{display:block;width:100%;height:620px;border:0;background:#080706}.tiktok-fallback{position:absolute;left:18px;right:18px;bottom:18px;display:flex;align-items:center;gap:14px;padding:14px 16px;background:#100d0bde;border:1px solid #ffffff18;border-radius:16px;backdrop-filter:blur(12px);z-index:2}.tiktok-fallback strong{display:block;font-size:12px}.tiktok-fallback span{display:block;color:#bba999;font-size:10px;margin-top:4px}.play-dot{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#111}.tiktok-fallback .btn{margin-left:auto}.social-row{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:20px}.social-pill{display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 12px;border:1px solid #ffffff14;background:#20140e;border-radius:16px;transition:.2s}.social-pill:hover{transform:translateY(-3px);border-color:#c79a5c66;box-shadow:0 12px 25px #0005}.social-pill .brand-ico{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900;font-size:21px;flex:none;box-shadow:0 4px 12px #0005}.social-pill span:last-child{display:flex;flex-direction:column;align-items:flex-start}.social-pill b{font-size:11px}.social-pill small{font-size:8px;color:#a99788;margin-top:3px}.social-pill.instagram .brand-ico{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)}.social-pill.tiktok .brand-ico{background:#070707;border:1px solid #ffffff20;text-shadow:2px 2px #25f4ee,-2px -2px #fe2c55}.social-pill.facebook .brand-ico{background:#1877f2;font-family:Arial}.social-pill.location .brand-ico{background:#c79a5c;color:#17110d}.payment-icons{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.pay-icon{min-width:86px;height:44px;padding:0 14px;border-radius:10px;background:#fff;color:#17202a;display:grid;place-items:center;font-weight:900;font-size:15px;box-shadow:0 5px 16px #0003}.pay-icon.mc{font-size:0}.pay-icon.mc:before{content:'●';font-size:24px;color:#e41e2b;text-shadow:12px 0 #f7a800}.pay-icon.visa{font-style:italic}.pay-icon.mada{font-size:13px}.pay-icon.apple{font-size:13px}.pay-icon.instapay{font-size:11px}.location-card{margin-top:20px;padding:20px;border:1px solid #c79a5c33;background:linear-gradient(135deg,#2a1b12,#18110d);border-radius:16px}.location-card h3{margin:0 0 8px;font:normal 28px Georgia,serif}.location-card p{margin:0;color:#b9a89a;line-height:1.7}.location-card .btn{margin-top:16px}
+@media(max-width:800px){.social-row{grid-template-columns:1fr 1fr!important}.tiktok-frame,.tiktok-frame iframe{min-height:560px;height:560px}.tiktok-fallback{flex-wrap:wrap}.tiktok-fallback .btn{margin-left:0}}
+
+.utility-nav{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.utility-nav a{padding:8px 9px;border:1px solid rgba(199,154,92,.22);border-radius:9px;font-size:9px;letter-spacing:.25px;color:#eadccf;background:#ffffff03;white-space:nowrap}.utility-nav a:hover{background:#c79a5c;color:#1b120b;border-color:#c79a5c}.auth-btn{font-weight:900}.auth-btn.signup{background:#c79a5c;color:#1b120b;border-color:#c79a5c}.auth-btn.login{background:#ffffff06}.utility-nav .globe{margin-left:2px}
+.contact-strip{padding:46px 44px 58px;border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);text-align:center}.contact-strip h2{margin:0 0 8px;font:normal 46px/1 Georgia,serif}.contact-strip p{margin:0;color:#a99889;font-size:13px}.contact-icons{display:flex;justify-content:center;gap:18px;margin-top:25px}.contact-icon{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#6f665e;border:1px solid #e5ddd5;box-shadow:0 4px 12px #0004;transition:.2s}.contact-icon:hover{transform:translateY(-3px);box-shadow:0 10px 22px #0005}.contact-icon svg{width:31px;height:31px}.contact-icon.instagram{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)}.contact-icon.facebook{background:#1877f2;color:#fff}.contact-icon.tiktok{background:#050505;color:#fff;text-shadow:2px 2px #25f4ee,-2px -2px #fe2c55}.contact-icon.facebook svg{width:28px;height:28px}.contact-icon.tiktok svg{width:30px;height:30px}.brand-cluster{display:flex;align-items:center;gap:22px;flex:none;min-width:0}.brand-cluster .account-chip{margin-left:2px}.account-chip{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.account-chip[hidden]{display:none!important}
+.footer-main{padding:28px 44px 22px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer-main .muted{color:#9f8d7f;font-size:12px}.footer-main strong{color:#fff}.footer-legal{display:flex;gap:8px;flex-wrap:wrap}.footer-legal a{font-size:10px;color:#9f8d7f}.footer-legal a:hover{color:#d9b57b}
+@media(max-width:1180px){.nav{height:auto;min-height:76px;padding:10px 18px}.brand-cluster{gap:12px}.brand-cluster .account-chip{max-width:105px;font-size:9px;padding:7px 8px}.navlinks{gap:4px}.navlinks>a{display:none}.utility-nav a{font-size:8px;padding:7px 8px}.brand{flex:none}.utility-nav{justify-content:flex-end}}
+@media(max-width:760px){.nav{height:auto;min-height:68px;flex-wrap:wrap;row-gap:10px;padding:10px 14px}.brand-cluster{gap:10px}.brand-cluster .account-chip{max-width:96px;font-size:9px;padding:7px 8px}.navlinks{margin-left:auto}.utility-nav a:nth-child(-n+4){display:none}.utility-nav a{font-size:9px}.contact-strip{padding:40px 20px 48px}.contact-strip h2{font-size:38px}.contact-icons{gap:14px}.contact-icon{width:54px;height:54px}.footer-main{padding:25px 20px}.footer-legal{width:100%}}
+
+/* About images: preserve each original photo's full aspect ratio; avoid forced crops and stretching. */
+.about{grid-template-columns:.78fr 1.22fr;align-items:start;gap:42px}
+.about-grid{width:100%;min-width:0;align-self:start;align-items:start}
+.about-grid img{display:block;width:100%;height:auto!important;max-height:none;object-fit:contain;object-position:center;align-self:start;background:#1d120c;image-rendering:auto}
+.about-grid img:first-child{grid-column:1 / -1;width:auto;height:auto!important;max-width:100%;max-height:760px;justify-self:center;object-fit:contain;object-position:center}
+.about-grid img:nth-child(2),.about-grid img:nth-child(3){width:100%;height:auto!important;object-fit:contain}
+.about-grid img:nth-child(4){grid-column:1 / -1;width:auto;height:auto!important;max-width:100%;max-height:620px;justify-self:center;object-fit:contain}
+.video-only-section{padding-top:58px;padding-bottom:58px}
+.tiktok-feature{max-width:1100px;margin:0 auto}
+.tiktok-frame{width:100%;height:800px;min-height:0;border-radius:24px;overflow:hidden;background:#080706;border:1px solid #ffffff14;box-shadow:0 25px 70px #0008}
+.tiktok-frame iframe{width:100%;height:100%;min-height:0;border:0;display:block;background:#080706}
+.video-direct-link{display:block;text-align:center;margin:14px auto 0;color:#c79a5c;font-size:12px;font-weight:800}
+.account-chip{display:inline-flex;align-items:center;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:8px 10px;border-radius:999px;background:#c79a5c18;border:1px solid #c79a5c66;color:#efcf9f;font-size:10px;font-weight:900}
+.account-chip[hidden]{display:none!important}
+@media(max-width:980px){.about{grid-template-columns:1fr;gap:28px}.about-grid img:first-child{max-height:760px}}
+@media(max-width:760px){.video-only-section{padding:38px 16px}.tiktok-feature{max-width:100%}.tiktok-frame{height:min(800px,170vw);min-height:480px;border-radius:18px}.about-grid img:first-child{max-height:680px}.about-grid img:nth-child(2),.about-grid img:nth-child(3){height:auto!important}.about-grid img:nth-child(4){max-height:540px}.account-chip{max-width:120px;font-size:9px;padding:7px 8px}}
+
+
+/* Compact About collage: copy and photos stay side-by-side on desktop and mobile. */
+#about.section{padding:58px clamp(16px,3vw,38px)}
+#about .about{width:100%;max-width:1080px;margin:0 auto;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(16px,3vw,34px);align-items:center}
+#about .about-copy{min-width:0}
+#about .about-copy h2{font-size:clamp(34px,4.2vw,52px);line-height:.96;letter-spacing:-1.5px;margin:8px 0 14px}
+#about .about-copy p{max-width:440px;font-size:clamp(12px,1.1vw,14px);line-height:1.68;margin:0}
+#about .about-grid{display:grid;width:100%;min-width:0;height:clamp(270px,29vw,360px);aspect-ratio:auto;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:10px;align-self:center}
+#about .about-grid img,#about .about-grid img:first-child,#about .about-grid img:nth-child(2),#about .about-grid img:nth-child(3),#about .about-grid img:nth-child(4){display:block;grid-column:auto!important;grid-row:auto!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:cover!important;object-position:center!important;border-radius:11px;background:#20140e;image-rendering:auto}
+#about .about-grid img:first-child{object-position:center 12%!important}
+@media(max-width:980px){#about.section{padding:44px 20px}#about .about{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:16px}#about .about-copy h2{font-size:clamp(25px,4.2vw,38px)}#about .about-copy p{font-size:clamp(11px,1.65vw,13px);line-height:1.6}#about .about-grid{height:clamp(220px,30vw,290px);gap:8px}}
+@media(max-width:600px){#about.section{padding:34px 14px}#about .about{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:10px;align-items:center}#about .about-copy .kicker{font-size:8px;letter-spacing:1.5px}#about .about-copy h2{font-size:clamp(19px,5.7vw,25px);line-height:1.02;letter-spacing:-.65px;margin:8px 0 10px}#about .about-copy p{font-size:clamp(10px,2.85vw,11.5px);line-height:1.52}#about .about-grid{height:clamp(165px,54vw,220px);gap:6px}#about .about-grid img{border-radius:8px}}
+@media(max-width:360px){#about.section{padding:30px 10px}#about .about{grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:8px}#about .about-copy h2{font-size:19px}#about .about-copy p{font-size:10px}#about .about-grid{height:166px;gap:5px}}
+
+
+/* Standalone horse customization notice, kept distinct from the paid training subscription. */
+#customization.section{padding:58px clamp(16px,3vw,38px)}
+.customization-card{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:26px;padding:clamp(22px,3.2vw,36px);border:1px solid #c79a5c55;border-radius:22px;background:radial-gradient(circle at 15% 0%,#4a2e1b 0,#2b1b12 42%,#1a110c 100%);box-shadow:0 18px 50px #0003}
+.customization-title-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.customization-title-row h2{margin:0;font:normal clamp(30px,4.4vw,52px)/.98 Georgia,serif;letter-spacing:-1.5px;color:#fffaf2}
+.customization-badge{display:inline-flex;align-items:center;padding:8px 12px;border:1px solid #c79a5c77;border-radius:999px;background:#c79a5c18;color:#e7c894;font-size:10px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase;white-space:nowrap}
+.customization-card p{max-width:660px;color:#c7b9ad;line-height:1.8;font-size:14px;margin:16px 0 0}
+.customization-card .btn{white-space:nowrap;justify-content:center;min-width:148px}
+@media(max-width:760px){#customization.section{padding:36px 16px}.customization-card{grid-template-columns:minmax(0,1fr);gap:22px;padding:22px;border-radius:18px}.customization-title-row{gap:9px}.customization-title-row h2{font-size:clamp(27px,7vw,38px)}.customization-badge{font-size:9px;padding:7px 10px}.customization-card p{font-size:13px;margin-top:13px}.customization-card .btn{width:max-content;max-width:100%}}
+
+</style>
+<style id="mobile-layout-parity">
+
+/* Mobile layout parity: keep the desktop composition while resizing elements for small screens. */
+@media (max-width: 980px) {
+  .page { width:100%; }
+  .hero { grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr) !important; min-height:0 !important; }
+  .hero-copy { padding:clamp(20px,4vw,52px) clamp(14px,3.5vw,42px) !important; }
+  .hero-media { min-height:0 !important; height:auto !important; }
+  .experiences { grid-template-columns:repeat(3,minmax(0,1fr)) !important; }
+  .experience:first-child { grid-column:auto !important; }
+  .about, #about .about { grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr) !important; }
+  .video { grid-template-columns:minmax(0,1.45fr) minmax(0,.55fr) !important; }
+  .custom, .payment { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+  .section { padding:clamp(30px,5vw,65px) clamp(14px,3vw,32px) !important; }
+  .nav { height:76px !important; min-height:76px !important; flex-wrap:nowrap !important; justify-content:flex-start !important; gap:18px; overflow-x:auto !important; overflow-y:visible; scrollbar-width:none; }
+  .nav::-webkit-scrollbar { display:none; }
+  .brand-cluster { flex:0 0 auto !important; gap:10px !important; }
+  .navlinks { display:flex !important; flex:0 0 auto !important; flex-wrap:nowrap !important; gap:6px !important; margin-left:auto; white-space:nowrap; }
+  .navlinks>a { display:inline-flex !important; flex:0 0 auto; padding:9px 10px !important; font-size:10px !important; }
+  .utility-nav { display:flex !important; flex:0 0 auto !important; flex-wrap:nowrap !important; gap:6px !important; white-space:nowrap; }
+  .utility-nav a, .utility-nav a:nth-child(-n+4) { display:inline-flex !important; flex:0 0 auto; font-size:10px !important; padding:8px 9px !important; }
+  .globe { flex:0 0 auto; }
+  .footer-main { display:flex !important; flex-direction:row !important; align-items:center !important; justify-content:space-between !important; gap:14px !important; flex-wrap:nowrap !important; overflow-x:auto; }
+  .footer-legal { display:flex !important; flex:0 0 auto; flex-wrap:nowrap !important; gap:10px !important; white-space:nowrap; }
+  .footer-legal a { font-size:10px !important; }
+}
+@media (max-width: 760px) {
+  .nav { padding:0 12px !important; gap:14px !important; }
+  .brand { font-size:14px !important; letter-spacing:3px !important; }
+  .brand img { width:30px !important; height:30px !important; }
+  .brand small { font-size:7px !important; }
+  .account-chip { max-width:110px !important; font-size:9px !important; padding:7px 8px !important; }
+  .hero { grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr) !important; min-height:0 !important; }
+  .hero-copy { padding:22px 14px !important; }
+  .hero .kicker { font-size:8px !important; letter-spacing:1.5px !important; line-height:1.4; }
+  .hero h1 { font-size:clamp(27px,7.3vw,52px) !important; line-height:.94 !important; letter-spacing:-1.4px !important; margin:12px 0 !important; }
+  .hero p { font-size:clamp(10px,2.8vw,13px) !important; line-height:1.55 !important; }
+  .rank { margin-top:14px !important; padding:6px 8px !important; font-size:8px !important; gap:4px !important; white-space:normal; }
+  .actions { gap:6px !important; margin-top:14px !important; }
+  .btn { padding:9px 10px !important; font-size:9px !important; letter-spacing:.2px !important; gap:4px !important; }
+  .hero-media { min-height:0 !important; height:auto !important; }
+  .hero-badge { left:7px !important; right:7px !important; bottom:8px !important; padding:7px !important; }
+  .hero-badge strong { font-size:10px !important; }
+  .hero-badge span { font-size:8px !important; }
+  .section { padding:34px 14px !important; }
+  .section-head { display:flex !important; flex-direction:row !important; align-items:flex-end !important; justify-content:space-between !important; gap:10px !important; margin-bottom:18px !important; }
+  .section-head h2 { font-size:clamp(23px,6.1vw,38px) !important; letter-spacing:-1px !important; line-height:.97 !important; }
+  .section-head p { font-size:10px !important; line-height:1.5 !important; max-width:46% !important; margin:0 !important; }
+  /* Keep the experience cards in a horizontal desktop-style row; swipe to see the rest. */
+  .experiences { display:flex !important; grid-template-columns:none !important; gap:10px !important; overflow-x:auto !important; overflow-y:hidden; scroll-snap-type:x mandatory; padding:0 0 8px !important; scrollbar-width:thin; scrollbar-color:#6b4c30 #21160f; }
+  .experience, .experience:first-child { flex:0 0 76% !important; width:76% !important; min-width:0 !important; min-height:300px !important; grid-column:auto !important; scroll-snap-align:start; }
+  .experience h3 { font-size:28px !important; }
+  .experience .price { font-size:12px !important; }
+  #about.section { padding:34px 14px !important; }
+  #about .about { grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr) !important; gap:10px !important; align-items:center !important; }
+  #about .about-copy .kicker { font-size:8px !important; letter-spacing:1.2px !important; }
+  #about .about-copy h2 { font-size:clamp(21px,5.7vw,27px) !important; line-height:1 !important; letter-spacing:-.6px !important; margin:8px 0 10px !important; }
+  #about .about-copy p { font-size:clamp(10px,2.85vw,11.5px) !important; line-height:1.5 !important; }
+  #about .about-grid { height:clamp(170px,52vw,220px) !important; gap:6px !important; }
+  #about .about-grid img { height:100% !important; object-fit:cover !important; border-radius:8px !important; }
+  .video-only-section { padding:34px 14px !important; }
+  .tiktok-feature { max-width:100% !important; }
+  .tiktok-frame { height:clamp(500px,158vw,680px) !important; min-height:0 !important; border-radius:16px !important; }
+  .tiktok-frame iframe { height:100% !important; }
+  .monthly { display:flex !important; flex-direction:row !important; justify-content:space-between !important; align-items:center !important; gap:9px !important; padding:14px !important; }
+  .monthly strong { font-size:clamp(18px,5vw,25px) !important; margin:6px 0 2px !important; }
+  .monthly span { font-size:9px !important; letter-spacing:0 !important; }
+  .monthly .btn { flex:0 0 auto; max-width:40%; white-space:normal; text-align:center; }
+  .payment { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:8px !important; }
+  .paybox { padding:12px !important; min-width:0; border-radius:12px !important; }
+  .payrow { padding:9px 0 !important; gap:5px !important; font-size:10px !important; flex-wrap:wrap; }
+  .paymethod { gap:6px !important; }
+  .paymethod .payicon { width:28px !important; height:28px !important; border-radius:8px !important; font-size:10px !important; }
+  .payval { font-size:10px !important; overflow-wrap:anywhere; }
+  .paybox p { font-size:10px !important; line-height:1.5 !important; }
+  .social-row { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:8px !important; }
+  .socials { display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important; gap:7px !important; }
+  .social { font-size:9px !important; padding:8px 6px !important; gap:5px !important; }
+  .social .brand-ico { width:27px !important; height:27px !important; }
+  .social .brand-ico svg { width:17px !important; height:17px !important; }
+  .social .brand-handle { display:none; }
+  .customization-card { grid-template-columns:minmax(0,1fr) auto !important; gap:10px !important; padding:14px !important; border-radius:15px !important; }
+  .customization-title-row { gap:6px !important; }
+  .customization-title-row h2 { font-size:clamp(22px,5.7vw,30px) !important; letter-spacing:-.5px !important; }
+  .customization-badge { font-size:7px !important; padding:6px 7px !important; letter-spacing:.6px !important; }
+  .customization-card p { font-size:10px !important; line-height:1.5 !important; margin-top:8px !important; }
+  .customization-card .btn { min-width:0 !important; white-space:normal !important; width:auto !important; max-width:88px !important; padding:9px 8px !important; }
+  .contact-strip { padding:35px 14px 40px !important; }
+  .contact-strip h2 { font-size:35px !important; }
+  .contact-icons { gap:14px !important; }
+  .contact-icon { width:48px !important; height:48px !important; }
+  .footer-main { padding:20px 14px !important; font-size:10px !important; }
+  .footer-main .muted { font-size:10px !important; }
+  .footer-legal a { font-size:9px !important; }
+  .wa { left:10px !important; bottom:10px !important; width:48px !important; height:48px !important; border-width:3px !important; }
+  .wa img { width:26px !important; height:26px !important; }
+}
+@media (max-width: 360px) {
+  .hero-copy { padding:18px 10px !important; }
+  .hero h1 { font-size:27px !important; }
+  .hero p { font-size:10px !important; }
+  .experience, .experience:first-child { flex-basis:84% !important; width:84% !important; }
+  #about .about { grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr) !important; }
+  #about .about-copy h2 { font-size:20px !important; }
+  #about .about-grid { height:165px !important; }
+}
+
+</style>
+
+<style id="stable-nav-and-language-fix">
+/* Stable, non-scrolling navigation: language changes must never slide the header sideways. */
+.page{overflow-x:clip!important;overflow-y:visible!important}
+.nav{position:sticky!important;top:0!important;z-index:100!important;overflow:visible!important;overflow-x:visible!important;overflow-y:visible!important}
+.navlinks{min-width:0!important;overflow:visible!important}
+.globe{position:relative!important;z-index:110!important}
+.menu{z-index:120!important;max-height:min(60vh,320px);overflow-y:auto}
+@media(max-width:980px){
+  .nav{display:grid!important;grid-template-columns:minmax(0,1fr)!important;grid-auto-rows:auto!important;align-items:stretch!important;justify-content:stretch!important;gap:8px!important;height:auto!important;min-height:0!important;flex-wrap:nowrap!important;padding:10px 12px!important;overflow:visible!important;overflow-x:visible!important;overflow-y:visible!important}
+  .brand-cluster{display:flex!important;width:100%!important;flex:0 0 auto!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;min-width:0!important}
+  .navlinks{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;grid-auto-flow:row!important;flex:none!important;align-items:stretch!important;justify-content:stretch!important;gap:5px!important;width:100%!important;min-width:0!important;margin:0!important;white-space:normal!important;overflow:visible!important}
+  .navlinks>a{display:flex!important;align-items:center!important;justify-content:center!important;min-width:0!important;min-height:34px!important;width:100%!important;padding:4px 3px!important;font-size:8px!important;line-height:1.08!important;letter-spacing:0!important;text-align:center!important;white-space:normal!important;overflow-wrap:anywhere!important;border:1px solid rgba(199,154,92,.14)!important;background:#ffffff03!important}
+  .utility-nav{display:grid!important;grid-column:1/-1!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;grid-auto-flow:row!important;align-items:stretch!important;justify-content:stretch!important;gap:5px!important;width:100%!important;min-width:0!important;margin:0!important;flex:none!important;white-space:normal!important;overflow:visible!important}
+  .utility-nav>a,.utility-nav>a:nth-child(-n+4){display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;min-width:0!important;min-height:36px!important;padding:4px 3px!important;font-size:8px!important;line-height:1.08!important;letter-spacing:0!important;text-align:center!important;white-space:normal!important;overflow-wrap:anywhere!important}
+  .globe{display:flex!important;align-items:center!important;justify-content:center!important;align-self:stretch!important;width:100%!important;min-width:0!important;margin:0!important}
+  .globe>button{width:36px!important;height:36px!important;flex:0 0 36px!important}
+  .menu{position:absolute!important;top:calc(100% + 7px)!important;right:0!important;left:auto!important;min-width:135px!important}
+  .rtl .navlinks,.rtl .utility-nav{direction:rtl!important}
+  .rtl .menu{right:auto!important;left:0!important}
+}
+@media(max-width:420px){
+  .nav{padding:9px 10px!important;gap:7px!important}
+  .brand-cluster{gap:7px!important}
+  .brand{gap:7px!important;font-size:12px!important;letter-spacing:2px!important}
+  .brand img{width:27px!important;height:27px!important}
+  .brand small{font-size:6px!important;letter-spacing:1.2px!important}
+  .account-chip{max-width:100px!important;font-size:8px!important;padding:6px 7px!important}
+  .navlinks>a{font-size:7.5px!important;padding:4px 2px!important}
+  .utility-nav>a,.utility-nav>a:nth-child(-n+4){font-size:7.5px!important;padding:4px 2px!important}
+}
+/* Mobile card action: use a clean circular arrow icon rather than a platform emoji/glyph. */
+@media (max-width: 760px) {
+  .experience .go { width: 44px !important; height: 44px !important; border-radius: 50% !important; background: #fff !important; color: #15100c !important; display: grid !important; place-items: center !important; }
+  .experience .go svg { width: 16px !important; height: 16px !important; }
+}
+/* Show each About photo in full rather than cropping the subject. */
+#about .about-grid img,#about .about-grid img:first-child,#about .about-grid img:nth-child(2),#about .about-grid img:nth-child(3),#about .about-grid img:nth-child(4){object-fit:contain!important;object-position:center!important;background:#100b08!important}
+</style>
+
+
+<style id="saheil-monthly-package-cards">
+#monthly .monthly-packages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch}
+#monthly .package-card{min-width:0;min-height:230px;display:flex;flex-direction:column;padding:22px;border:1px solid #c79a5c45;border-radius:18px;background:linear-gradient(145deg,#2b1b12 0%,#1d130e 72%);box-shadow:inset 0 1px #ffffff08;transition:transform .2s,border-color .2s,box-shadow .2s}
+#monthly .package-card:hover{transform:translateY(-3px);border-color:#c79a5c99;box-shadow:0 14px 32px #0004}
+#monthly .package-card.featured{background:linear-gradient(145deg,#3a2617 0%,#21150e 78%);border-color:#c79a5c99;box-shadow:inset 0 0 0 1px #c79a5c18}
+#monthly .package-top{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#c79a5c}
+#monthly .package-index{font-size:9px;letter-spacing:2px;font-weight:900;text-transform:uppercase}
+#monthly .package-dot{display:grid;place-items:center;width:26px;height:26px;border:1px solid #c79a5c55;border-radius:50%;font-size:12px;flex:none}
+#monthly .package-card h3{font:normal clamp(21px,2.5vw,32px)/1.05 Georgia,serif;margin:23px 0 12px;overflow-wrap:anywhere}
+#monthly .package-price{font-size:clamp(22px,3vw,36px);font-weight:900;letter-spacing:-1px;color:#e9c995;line-height:1.05;white-space:nowrap}
+#monthly .package-unit{font-size:11px;line-height:1.5;color:#b9a89a;margin:9px 0 22px}
+#monthly .package-book{margin-top:auto;justify-content:center;width:100%;min-width:0;white-space:nowrap}
+@media(max-width:760px){#monthly .monthly-packages{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}#monthly .package-card{padding:clamp(9px,2.8vw,14px);min-height:190px;border-radius:13px}#monthly .package-index{font-size:clamp(6px,1.7vw,8px);letter-spacing:.5px}#monthly .package-dot{width:19px;height:19px;font-size:9px}#monthly .package-card h3{font-size:clamp(12px,3.4vw,18px);line-height:1.1;margin:16px 0 10px;letter-spacing:-.2px}#monthly .package-price{font-size:clamp(13px,3.7vw,22px);letter-spacing:-.5px}#monthly .package-unit{font-size:clamp(7px,1.9vw,9px);line-height:1.4;margin:8px 0 14px}#monthly .package-book{padding:8px 3px!important;font-size:clamp(7px,1.9vw,9px)!important;letter-spacing:0!important;border-radius:8px;gap:2px}}
+@media(max-width:360px){#monthly .package-card{padding:8px}#monthly .package-card h3{font-size:11px}#monthly .package-price{font-size:12px}#monthly .package-index{font-size:6px}}
+</style>
+
+
+<style id="one-row-stable-navigation-and-experience-style-package-buttons">
+/* Keep the complete navigation on one stable horizontal line. The links scroll inside their own strip on very narrow phones; the header itself never grows or jumps. */
+.nav{position:sticky!important;top:0!important;z-index:100!important;display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;justify-content:space-between!important;gap:clamp(6px,1vw,14px)!important;width:100%!important;height:72px!important;min-height:72px!important;padding:0 clamp(8px,1.8vw,24px)!important;overflow:visible!important;overflow-x:visible!important;overflow-y:visible!important;grid-template-columns:none!important;}
+.brand-cluster{flex:0 0 auto!important;min-width:0!important;gap:clamp(5px,1vw,14px)!important;}
+.brand{flex:0 0 auto!important;white-space:nowrap!important;}
+.account-chip{max-width:clamp(56px,10vw,150px)!important;}
+.navlinks{display:flex!important;flex:1 1 auto!important;min-width:0!important;width:auto!important;max-width:none!important;align-items:center!important;justify-content:flex-start!important;flex-flow:row nowrap!important;gap:4px!important;margin:0!important;padding:2px 0!important;white-space:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;}
+.navlinks::-webkit-scrollbar{display:none!important}
+.utility-nav{display:contents!important;flex:none!important;white-space:nowrap!important;}
+.navlinks>a,.utility-nav>a,.utility-nav>a:nth-child(-n+4){display:inline-flex!important;flex:0 0 auto!important;align-items:center!important;justify-content:center!important;width:auto!important;min-width:0!important;min-height:30px!important;padding:7px clamp(5px,.55vw,9px)!important;font-size:clamp(7px,.68vw,10px)!important;line-height:1.05!important;letter-spacing:0!important;text-align:center!important;white-space:nowrap!important;overflow-wrap:normal!important;border:1px solid rgba(199,154,92,.24)!important;border-radius:9px!important;background:#ffffff03!important;}
+.navlinks>a:hover,.utility-nav>a:hover{background:#c79a5c!important;color:#1b120b!important;border-color:#c79a5c!important}
+.utility-nav .auth-btn.signup{background:#c79a5c!important;color:#1b120b!important;border-color:#c79a5c!important}
+.globe{position:relative!important;display:flex!important;flex:0 0 38px!important;align-items:center!important;justify-content:center!important;width:38px!important;min-width:38px!important;margin:0!important;align-self:center!important;z-index:110!important;}
+.globe>button{display:grid!important;place-items:center!important;width:36px!important;height:36px!important;flex:0 0 36px!important;font-size:17px!important;}
+.menu{position:absolute!important;top:calc(100% + 8px)!important;right:0!important;left:auto!important;z-index:999!important;min-width:135px!important;max-height:min(60vh,320px)!important;overflow-y:auto!important;}
+.rtl .navlinks{direction:rtl!important}
+.rtl .menu{right:auto!important;left:0!important}
+@media(max-width:980px){
+ .nav{display:flex!important;grid-template-columns:none!important;height:66px!important;min-height:66px!important;padding:0 9px!important;gap:6px!important;}
+ .brand-cluster{gap:6px!important;}
+ .brand{font-size:12px!important;letter-spacing:2px!important;gap:5px!important;}
+ .brand img{width:27px!important;height:27px!important;}
+ .brand small{font-size:6px!important;letter-spacing:1px!important;}
+ .account-chip{font-size:7px!important;padding:5px 6px!important;max-width:78px!important;}
+ .navlinks{gap:4px!important;}
+ .navlinks>a,.utility-nav>a,.utility-nav>a:nth-child(-n+4){min-height:28px!important;padding:6px 6px!important;font-size:8px!important;}
+ .globe{flex-basis:32px!important;width:32px!important;min-width:32px!important;}
+ .globe>button{width:30px!important;height:30px!important;flex-basis:30px!important;font-size:14px!important;}
+}
+@media(max-width:600px){
+ .nav{height:60px!important;min-height:60px!important;padding:0 7px!important;gap:5px!important;}
+ .brand{font-size:10px!important;letter-spacing:1.4px!important;}
+ .brand img{width:23px!important;height:23px!important;}
+ .brand small{font-size:5px!important;letter-spacing:.7px!important;}
+ .account-chip{max-width:62px!important;font-size:6.5px!important;padding:4px 5px!important;}
+ .navlinks{gap:3px!important;}
+ .navlinks>a,.utility-nav>a,.utility-nav>a:nth-child(-n+4){font-size:7px!important;padding:5px 5px!important;min-height:25px!important;border-radius:7px!important;}
+ .globe{flex-basis:28px!important;width:28px!important;min-width:28px!important;}
+ .globe>button{width:27px!important;height:27px!important;flex-basis:27px!important;font-size:13px!important;}
+}
+/* Remove the oversized empty gap: keep the language button immediately beside the navigation links. */
+.nav{justify-content:flex-start!important;gap:clamp(6px,.65vw,12px)!important}
+.navlinks{flex:0 1 auto!important;max-width:none!important;margin:0!important}
+.globe{margin-left:0!important;margin-right:0!important}
+.rtl .nav{justify-content:flex-start!important}
+@media(max-width:980px){.nav{justify-content:flex-start!important;gap:6px!important}.navlinks{flex:0 1 auto!important}.globe{margin-left:0!important}}
+@media(max-width:600px){.nav{justify-content:flex-start!important;gap:5px!important}.navlinks{flex:0 1 auto!important}.globe{margin-left:0!important}}
+/* Reuse the Experience cards' round white arrow as the booking action for each training package. */
+#monthly .package-book{margin-top:auto!important;align-self:flex-end!important;display:grid!important;place-items:center!important;width:36px!important;height:36px!important;min-width:36px!important;padding:0!important;border:0!important;border-radius:50%!important;background:#fff!important;color:#15100c!important;box-shadow:0 2px 8px #0002!important;white-space:normal!important;}
+#monthly .package-book svg{display:block!important;width:15px!important;height:15px!important;}
+#monthly .package-book:hover{transform:translateY(-2px)!important;box-shadow:0 10px 20px #0004!important;}
+#monthly .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;}
+@media(max-width:760px){#monthly .package-book{width:44px!important;height:44px!important;min-width:44px!important}#monthly .package-book svg{width:16px!important;height:16px!important}}
+</style>
+
+<style id="remove-large-nav-gap-final">
+/* Keep the globe immediately beside the navigation links; prevent the links wrapper from stretching across unused space. */
+.nav{justify-content:flex-start!important;gap:clamp(7px,1vw,14px)!important;}
+.brand-cluster{flex:0 0 auto!important;}
+.navlinks{flex:0 1 auto!important;width:auto!important;max-width:none!important;min-width:0!important;margin:0!important;justify-content:flex-start!important;}
+.navlinks .utility-nav{display:contents!important;}
+.globe{position:relative!important;flex:0 0 auto!important;margin:0 0 0 clamp(4px,.5vw,8px)!important;}
+.globe>button{flex:0 0 auto!important;}
+@media(max-width:760px){
+  .nav{justify-content:flex-start!important;gap:7px!important;overflow:visible!important;}
+  .brand-cluster{flex:0 0 auto!important;}
+  .navlinks{flex:0 1 auto!important;overflow-x:auto!important;overflow-y:hidden!important;min-width:0!important;max-width:calc(100vw - 225px)!important;scrollbar-width:none!important;}
+  .navlinks::-webkit-scrollbar{display:none!important;}
+  .globe{flex:0 0 auto!important;margin-left:3px!important;}
+}
+@media(max-width:480px){
+  .nav{gap:5px!important;padding-left:7px!important;padding-right:7px!important;}
+  .navlinks{max-width:calc(100vw - 170px)!important;}
+}
+</style>
+
+
+<style id="actual-nav-gap-fix-2026-10-11">
+/* Actual fix: the links wrapper was stretching to consume spare header width,
+   which pushed the language globe to the far edge. Size the wrapper to its
+   contents and only allow it to scroll when the viewport truly needs it. */
+.nav{justify-content:flex-start!important;gap:clamp(6px,.65vw,12px)!important}
+.navlinks{flex:0 0 auto!important;width:max-content!important;min-width:0!important;max-width:calc(100vw - 430px)!important;margin:0!important;}
+.navlinks .utility-nav{display:contents!important}
+.navlinks{overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important}
+.navlinks::-webkit-scrollbar{display:none!important}
+.globe{flex:0 0 38px!important;width:38px!important;min-width:38px!important;margin:0!important}
+@media(min-width:761px) and (max-width:1180px){
+  .nav{gap:7px!important;padding-left:10px!important;padding-right:10px!important}
+  .navlinks{max-width:calc(100vw - 300px)!important}
+  .globe{flex-basis:32px!important;width:32px!important;min-width:32px!important}
+}
+@media(max-width:760px){
+  .nav{justify-content:flex-start!important;gap:5px!important}
+  .navlinks{flex:0 1 auto!important;width:max-content!important;max-width:calc(100vw - 225px)!important;min-width:0!important}
+  .globe{flex:0 0 28px!important;width:28px!important;min-width:28px!important;margin:0!important}
+}
+@media(max-width:480px){
+  .navlinks{max-width:calc(100vw - 175px)!important}
+}
+</style>
+
+
+<style id="real-separation-between-brand-and-navigation">
+/* Clear, intentional breathing room between SAHEIL / account name and the menu. */
+@media (min-width: 981px) {
+  .nav { justify-content: flex-start !important; gap: 0 !important; }
+  .brand-cluster { margin-inline-end: 34px !important; flex: 0 0 auto !important; }
+  .navlinks { margin: 0 !important; flex: 0 1 auto !important; width: max-content !important; max-width: calc(100vw - 500px) !important; min-width: 0 !important; }
+  .globe { margin-inline-start: 12px !important; flex: 0 0 38px !important; }
+}
+@media (min-width: 761px) and (max-width: 980px) {
+  .nav { justify-content: flex-start !important; gap: 0 !important; }
+  .brand-cluster { margin-inline-end: 18px !important; flex: 0 0 auto !important; }
+  .navlinks { margin: 0 !important; flex: 0 1 auto !important; width: max-content !important; max-width: calc(100vw - 385px) !important; min-width: 0 !important; }
+  .globe { margin-inline-start: 8px !important; }
+}
+@media (max-width: 760px) {
+  .nav { gap: 0 !important; }
+  .brand-cluster { margin-inline-end: 12px !important; flex: 0 0 auto !important; }
+  .navlinks { margin: 0 !important; max-width: calc(100vw - 245px) !important; }
+  .globe { margin-inline-start: 6px !important; }
+}
+</style>
+
+
+<style id="brand-to-navigation-large-gap-final">
+/* Keep a deliberate, generous separation between the Saheil brand/account and the first navigation button. */
+@media (min-width: 1181px) {
+  .navlinks { margin-left: 72px !important; max-width: calc(100% - 470px) !important; flex: 0 1 auto !important; }
+}
+@media (min-width: 761px) and (max-width: 1180px) {
+  .navlinks { margin-left: 30px !important; max-width: calc(100% - 360px) !important; flex: 0 1 auto !important; }
+}
+@media (max-width: 760px) {
+  .navlinks { margin-left: 16px !important; max-width: calc(100vw - 245px) !important; flex: 0 1 auto !important; }
+}
+@media (max-width: 480px) {
+  .navlinks { margin-left: 12px !important; max-width: calc(100vw - 190px) !important; }
+}
+</style>
+
+<style id="final-nav-aligned-to-edge">
+/* Brand stays at one end; navigation + globe form one compact group at the opposite edge. */
+.nav{display:flex!important;flex-direction:row!important;justify-content:flex-start!important;align-items:center!important;gap:0!important;overflow:visible!important;overflow-x:visible!important;padding-inline:clamp(10px,2vw,30px)!important}
+.brand-cluster{flex:0 0 auto!important;margin:0!important;min-width:0!important}
+.navlinks{margin-inline-start:auto!important;margin-inline-end:0!important;flex:0 1 auto!important;width:max-content!important;min-width:0!important;max-width:calc(100% - 470px)!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important}
+.navlinks::-webkit-scrollbar{display:none!important}
+.navlinks .utility-nav{display:contents!important}
+.globe{position:relative!important;flex:0 0 38px!important;width:38px!important;min-width:38px!important;margin-inline-start:8px!important;margin-inline-end:0!important}
+.globe>button{width:38px!important;height:38px!important}
+/* RTL mirrors the row while preserving the same spacing logic. */
+.rtl .navlinks{margin-inline-start:auto!important;margin-inline-end:0!important}
+@media(min-width:761px) and (max-width:1180px){
+ .nav{padding-inline:12px!important;gap:0!important}
+ .navlinks{max-width:calc(100% - 330px)!important}
+ .globe{flex-basis:32px!important;width:32px!important;min-width:32px!important;margin-inline-start:6px!important}
+ .globe>button{width:32px!important;height:32px!important}
+}
+@media(max-width:760px){
+ .nav{height:66px!important;min-height:66px!important;flex-wrap:nowrap!important;gap:0!important;padding-inline:7px!important}
+ .brand-cluster{flex:0 0 auto!important;margin:0!important;gap:6px!important}
+ .brand{font-size:12px!important;letter-spacing:2px!important;gap:5px!important}
+ .brand img{width:27px!important;height:27px!important}
+ .brand small{font-size:6px!important;letter-spacing:1px!important}
+ .account-chip{max-width:76px!important;font-size:7px!important;padding:5px 6px!important}
+ .navlinks{margin-inline-start:auto!important;margin-inline-end:0!important;flex:0 1 auto!important;width:max-content!important;max-width:calc(100vw - 220px)!important;min-width:0!important;gap:3px!important}
+ .navlinks>a,.utility-nav>a,.utility-nav>a:nth-child(-n+4){display:inline-flex!important;flex:0 0 auto!important;min-height:27px!important;padding:5px 5px!important;font-size:7px!important;white-space:nowrap!important}
+ .globe{flex:0 0 28px!important;width:28px!important;min-width:28px!important;margin-inline-start:5px!important}
+ .globe>button{width:28px!important;height:28px!important;font-size:13px!important}
+}
+@media(max-width:420px){
+ .brand-cluster{gap:4px!important}
+ .brand{font-size:10px!important;letter-spacing:1.3px!important}
+ .brand img{width:23px!important;height:23px!important}
+ .brand small{font-size:5px!important;letter-spacing:.6px!important}
+ .account-chip{max-width:58px!important;font-size:6px!important;padding:4px!important}
+ .navlinks{max-width:calc(100vw - 165px)!important}
+ .navlinks>a,.utility-nav>a,.utility-nav>a:nth-child(-n+4){font-size:6.5px!important;padding:4px!important}
+}
+</style>
+
+
+<style id="separate-page-link-cues-final">
+/* Make links that navigate to dedicated pages visibly different from in-page section anchors. */
+.navlinks .utility-nav > a[href$=".html"] {
+  display: inline-flex !important; align-items: center !important; justify-content: center !important;
+  gap: 5px !important; padding: 8px 10px !important; min-height: 32px !important;
+  border: 1px solid rgba(199,154,92,.46) !important; border-radius: 10px !important;
+  background: linear-gradient(180deg, rgba(199,154,92,.09), rgba(255,255,255,.025)) !important;
+  color: #f1e5d7 !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.045);
+  transition: background .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+.navlinks .utility-nav > a[href$=".html"]::after {
+  content: "↗"; display: inline-block; margin-inline-start: 2px;
+  color: #d9b57b; font-size: .9em; font-weight: 900; line-height: 1;
+}
+.navlinks .utility-nav > a[href$=".html"]:hover,
+.navlinks .utility-nav > a[href$=".html"]:focus-visible {
+  background: #c79a5c !important; color: #1b120b !important; border-color: #e0b773 !important;
+  box-shadow: 0 5px 14px rgba(0,0,0,.22); transform: translateY(-1px); outline: none;
+}
+.navlinks .utility-nav > a[href$=".html"]:hover::after,
+.navlinks .utility-nav > a[href$=".html"]:focus-visible::after { color: #1b120b; }
+@media (max-width: 760px) {
+  .navlinks .utility-nav > a[href$=".html"] { padding: 6px 7px !important; min-height: 28px !important; gap: 3px !important; }
+  .navlinks .utility-nav > a[href$=".html"]::after { font-size: .82em; }
+}
+</style>
+<style id="nav-colors-refined-2026-10-11">
+/* Slightly darker, calmer navigation buttons; warm beige reserved for account actions. */
+.navlinks>a,
+.utility-nav>a,
+.utility-nav>a:nth-child(-n+4){
+  background:rgba(42,29,21,.88)!important;
+  border-color:rgba(137,99,62,.48)!important;
+  color:#d9cbbb!important;
+}
+.navlinks>a:hover,
+.utility-nav>a:hover{
+  background:#49311f!important;
+  color:#fff6e9!important;
+  border-color:#987046!important;
+}
+.utility-nav .auth-btn.login,
+.utility-nav .auth-btn.signup{
+  background:#ead9bd!important;
+  border-color:#ead9bd!important;
+  color:#25180f!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.35)!important;
+  font-weight:900!important;
+}
+.utility-nav .auth-btn.login:hover,
+.utility-nav .auth-btn.signup:hover{
+  background:#f4e8d5!important;
+  border-color:#f4e8d5!important;
+  color:#25180f!important;
+}
+</style>
+
+<style id="final-mobile-nav-visible-fix">
+/* Mobile navigation: keep the club brand + language button on the first row,
+   and show every menu link in a clearly visible, touch-scrollable strip below. */
+@media (max-width: 760px) {
+  .nav {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 36px !important;
+    grid-template-rows: auto auto !important;
+    align-items: center !important;
+    justify-content: stretch !important;
+    gap: 8px 8px !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 9px 12px 7px !important;
+    overflow: visible !important;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+  }
+  .brand-cluster {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    width: auto !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+  .brand { flex: 0 0 auto !important; font-size: 12px !important; letter-spacing: 2px !important; gap: 6px !important; }
+  .brand img { width: 28px !important; height: 28px !important; }
+  .brand small { font-size: 6px !important; letter-spacing: 1px !important; }
+  .account-chip { max-width: 104px !important; font-size: 8px !important; padding: 6px 8px !important; }
+  .globe {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    justify-self: end !important;
+    align-self: center !important;
+    width: 36px !important;
+    min-width: 36px !important;
+    flex: 0 0 36px !important;
+    margin: 0 !important;
+    position: relative !important;
+    overflow: visible !important;
+  }
+  .globe > button { width: 34px !important; height: 34px !important; flex: 0 0 34px !important; font-size: 14px !important; }
+  .menu { top: calc(100% + 7px) !important; right: 0 !important; left: auto !important; z-index: 999 !important; }
+  .navlinks {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+    display: flex !important;
+    flex-flow: row nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 6px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 1px 0 4px !important;
+    flex: none !important;
+    white-space: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: #705034 transparent !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-x !important;
+  }
+  .navlinks::-webkit-scrollbar { height: 3px !important; }
+  .navlinks::-webkit-scrollbar-thumb { background: #705034 !important; border-radius: 99px !important; }
+  .navlinks > a,
+  .navlinks .utility-nav > a,
+  .navlinks .utility-nav > a:nth-child(-n+4) {
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: auto !important;
+    min-width: max-content !important;
+    min-height: 32px !important;
+    padding: 7px 10px !important;
+    font-size: 9px !important;
+    line-height: 1.1 !important;
+    letter-spacing: 0 !important;
+    white-space: nowrap !important;
+    overflow-wrap: normal !important;
+    border: 1px solid rgba(199,154,92,.28) !important;
+    border-radius: 9px !important;
+    background: #211710 !important;
+    color: #eadccf !important;
+  }
+  .navlinks .utility-nav { display: contents !important; }
+  .navlinks .auth-btn.login { background: #eee1cd !important; color: #2a1b12 !important; border-color: #eee1cd !important; }
+  .navlinks .auth-btn.signup { background: #c79a5c !important; color: #1b120b !important; border-color: #c79a5c !important; }
+  .navlinks > a:hover, .navlinks .utility-nav > a:hover { background: #c79a5c !important; color: #1b120b !important; }
+  .rtl .navlinks { direction: rtl !important; }
+  .rtl .menu { right: auto !important; left: 0 !important; }
+}
+@media (max-width: 380px) {
+  .nav { padding-left: 9px !important; padding-right: 9px !important; gap: 7px 6px !important; }
+  .brand { font-size: 10px !important; letter-spacing: 1.3px !important; gap: 5px !important; }
+  .brand img { width: 24px !important; height: 24px !important; }
+  .brand small { font-size: 5px !important; letter-spacing: .6px !important; }
+  .account-chip { max-width: 88px !important; font-size: 7px !important; padding: 5px 6px !important; }
+  .navlinks { gap: 5px !important; }
+  .navlinks > a, .navlinks .utility-nav > a, .navlinks .utility-nav > a:nth-child(-n+4) { font-size: 8px !important; padding: 7px 9px !important; }
+}
+</style>
+
+</head>
+<body>
+<div class="page">
+<header class="nav">
+  <div class="brand-cluster">
+    <a class="brand" href="index.html"><img src="assets/logo-white.png" alt=""><span>SAHEIL<small>EQUESTRIAN CLUB</small></span></a>
+    <span class="account-chip" id="account-chip" hidden></span>
+  </div>
+  <nav class="navlinks">
+    <a href="#experiences" data-i="experiences">Experiences</a><a href="#about" data-i="about">About</a><a href="#video" data-i="video">Video</a><a href="#monthly" data-i="monthly">Training</a><a href="#payment" data-i="payment">Payment</a>
+    <div class="utility-nav">
+      <a href="contact-us.html" data-i="contactUs">Contact Us</a>
+      <a href="privacy-policy.html" data-i="privacyPolicy">Privacy Policy</a>
+      <a href="terms.html" data-i="terms">Terms &amp; Conditions</a>
+      <a href="customize.html" data-i="customizationNav">Customization</a>
+      <a href="location.html" data-i="locationTop">Location</a>
+      <a class="auth-btn login" href="login.html" data-i="login">Login</a>
+      <a class="auth-btn signup" href="signup.html" data-i="signup">Sign Up</a>
+    </div>
+  </nav>
+  <div class="globe" id="globe"><button type="button" aria-label="Language" aria-haspopup="true" aria-expanded="false">🌐</button><div class="menu"><button data-lang="ar">العربية</button><button data-lang="en">English</button><button data-lang="fr">Français</button><button data-lang="de">Deutsch</button><button data-lang="es">Español</button></div></div>
+</header>
+<main>
+<section class="hero" id="home">
+  <div class="hero-copy"><div class="kicker" data-i="kicker">SAHEIL EQUESTRIAN CLUB · BENI SUEF</div><h1 data-i="heroTitle">More than<br><em>riding.</em></h1><p data-i="heroText">A premium equestrian experience built around real riding, real horses and memorable adventures in Beni Suef.</p><div class="rank" data-i="rank">★ SAHEIL #1 IN BENI SUEF</div><div class="actions"><a class="btn primary" href="#experiences" data-i="explore">Explore Experiences ↗</a><a class="btn secondary" href="training.html" data-i="training">Training →</a></div></div>
+  <div class="hero-media"><img src="assets/saheil-home-logo.jpg" alt="Saheil"><div class="hero-badge"><strong data-i="heroBadge">صهيل رقم 1 في بني سويف</strong><span data-i="heroPlace">Beni Suef · Egypt</span></div></div>
+</section>
+<section class="section" id="experiences"><div class="section-head"><div><div class="kicker" data-i="experienceKicker">THE PROGRAM</div><h2 data-i="experienceTitle">Pick your ride.</h2></div><p data-i="experienceIntro">Three clear experiences. One club. Tap any card to open its full page.</p></div>
+<div class="experiences">
+<a class="experience" href="jumping.html"><img src="assets/jumping.jpg"><div class="experience-body"><h3 data-i="jumping">Jumping</h3><div class="price" data-i="jumpingPrice">350 EGP</div><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a>
+<a class="experience" href="desert.html"><img src="assets/desert.jpg"><div class="experience-body"><h3 data-i="desert">Desert Trips</h3><div class="price" data-i="desertPrice">700 EGP</div><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a>
+<a class="experience" href="free-riding.html"><img src="assets/free-user-edited.jpg"><div class="experience-body"><h3 data-i="free">Free Riding</h3><div class="price" data-i="freePrice">300 EGP</div><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a>
+</div></section>
+<section class="section" id="about"><div class="about"><div class="about-copy"><div class="kicker" data-i="aboutKicker">ABOUT SAHEIL</div><h2 data-i="aboutTitle">Ride.<br>Explore.<br>Grow.</h2><p data-i="aboutText">Saheil Equestrian Club is a riding-first community in Beni Suef focused on training, horse experience and outdoor adventure.</p></div><div class="about-grid"><img src="assets/about.jpg" alt="Saheil rider with his horse"><img src="assets/about-gallery-1.png" alt="Saheil jumping training"><img src="assets/about-gallery-2.png" alt="Saheil equestrian club"><img src="assets/about-gallery-3.png" alt="Saheil riding moment"></div></div></section>
+<section class="section video-only-section" id="video" aria-label="Saheil TikTok video">
+  <div class="tiktok-feature">
+    <div class="tiktok-frame">
+      <iframe src="https://www.tiktok.com/player/v1/7685149796872523015?music_info=1&amp;description=1" title="Saheil TikTok video" allow="fullscreen; autoplay; encrypted-media; clipboard-write" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+    <a class="video-direct-link" href="https://www.tiktok.com/@.saheil.club/video/7685149796872523015" target="_blank" rel="noopener noreferrer">Open video on TikTok ↗</a>
+  </div>
+</section>
+<script async src="https://www.tiktok.com/embed.js"></script><section class="section" id="monthly"><div class="section-head">
+<div><div class="kicker" data-i="customKicker">MONTHLY HORSES</div><h2 data-i="customTitle">Monthly horse availability.</h2></div>
+<p data-i="customText">Horses are available for monthly customization.</p>
+</div>
+<div class="monthly-packages" aria-label="Monthly training packages">
+  <article class="package-card">
+    <div class="package-top"><span class="package-index" data-i="packageLabel1">PACKAGE 01</span><span class="package-dot" aria-hidden="true">✦</span></div>
+    <h3 data-i="pack8Title">8 Sessions</h3>
+    <div class="package-price" data-i="pack8Price">1500 EGP</div>
+    <p class="package-unit" data-i="packageUnit">Monthly training package</p>
+    <a class="go package-book" href="https://wa.me/201009756619?service=Monthly%20Training&amp;pack=8" aria-label="Book 8-session package" title="Book 8-session package"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only" data-i="packageBook">Book ↗</span></a>
+  </article>
+  <article class="package-card featured">
+    <div class="package-top"><span class="package-index" data-i="packageLabel2">PACKAGE 02</span><span class="package-dot" aria-hidden="true">✦</span></div>
+    <h3 data-i="pack10Title">10 Sessions</h3>
+    <div class="package-price" data-i="pack10Price">1900 EGP</div>
+    <p class="package-unit" data-i="packageUnit">Monthly training package</p>
+    <a class="go package-book" href="https://wa.me/201009756619?service=Monthly%20Training&amp;pack=10" aria-label="Book 10-session package" title="Book 10-session package"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only" data-i="packageBook">Book ↗</span></a>
+  </article>
+  <article class="package-card">
+    <div class="package-top"><span class="package-index" data-i="packageLabel3">PACKAGE 03</span><span class="package-dot" aria-hidden="true">✦</span></div>
+    <h3 data-i="pack12Title">12 Sessions</h3>
+    <div class="package-price" data-i="pack12Price">2100 EGP</div>
+    <p class="package-unit" data-i="packageUnit">Monthly training package</p>
+    <a class="go package-book" href="https://wa.me/201009756619?service=Monthly%20Training&amp;pack=12" aria-label="Book 12-session package" title="Book 12-session package"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only" data-i="packageBook">Book ↗</span></a>
+  </article>
+</div></section>
+
+
+<section class="section" id="payment"><div class="section-head"><div><div class="kicker" data-i="payKicker">ONLINE PAYMENT</div><h2 data-i="payTitle">Pay your way.</h2></div><p data-i="payIntro">Available online payment option shown clearly at checkout.</p></div><div class="payment"><div class="paybox"><div class="payrow"><span class="paymethod"><span class="payicon">VC</span><span class="payname" data-i="vodafone">Vodafone Cash</span></span><span class="payval">01009756619</span></div><div class="payrow"><span class="paymethod"><span class="payicon">IP</span><span class="payname" data-i="instaPay">InstaPay</span></span><span class="payval">01009756619</span></div></div><div class="paybox"><div class="kicker">SAHEIL</div><p style="color:#b9a89a;line-height:1.8;margin:10px 0" data-i="payNote">Send the payment, keep the confirmation, then complete your booking.</p><a class="btn secondary" href="booking.html" data-i="continue">Continue to Booking →</a></div></div></section>
+</main>
+<section class="contact-strip" id="contact">
+  <h2 data-i="contactTitle">التواصل</h2>
+  <p data-i="contactSub">تواصل مع صهيل بالطريقة المناسبة لك.</p>
+  <div class="contact-icons">
+    <a class="contact-icon facebook" href="facebook.html" aria-label="Facebook" title="Facebook">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M13.6 21v-8.2h2.75l.41-3.2H13.6V7.56c0-.93.26-1.56 1.6-1.56h1.7V3.14C16.6 3.05 15.6 3 14.46 3c-3.04 0-5.12 1.86-5.12 5.27V9.6H6.6v3.2h2.74V21h4.26z"/></svg>
+    </a>
+    <a class="contact-icon instagram" href="instagram.html" aria-label="Instagram" title="Instagram">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5" fill="none" stroke="#fff" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="#fff" stroke-width="2"/><circle cx="17.4" cy="6.7" r="1.15" fill="#fff"/></svg>
+    </a>
+    <a class="contact-icon tiktok" href="tiktok.html" aria-label="TikTok" title="TikTok">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#25F4EE" d="M14.2 3h3.1c.2 1.8 1.2 3.3 3.1 4.1v3.2a9 9 0 0 1-3.1-1.4v6.3a6.2 6.2 0 1 1-6.2-6.2h.7v3.4h-.7a2.8 2.8 0 1 0 2.8 2.8V3z"/><path fill="#FE2C55" d="M12.8 4.2h3.1c.2 1.8 1.2 3.3 3.1 4.1v3.2a9 9 0 0 1-3.1-1.4v6.3a6.2 6.2 0 1 1-6.2-6.2h.7v3.4h-.7a2.8 2.8 0 1 0 2.8 2.8V4.2z"/><path fill="#fff" d="M13.5 3h2.2c.2 1.8 1.2 3.3 3.1 4.1v2.5a8.4 8.4 0 0 1-3.1-1.4v6.3a6.2 6.2 0 1 1-6.2-6.2h.7v3.4h-.7a2.8 2.8 0 1 0 2.8 2.8V3z"/></svg>
+    </a>
+  </div>
+</section>
+<footer class="footer-main">
+  <div class="muted"><strong>SAHEIL</strong> · <span data-i="footerText">صهيل رقم 1 في بني سويف</span></div>
+  <div class="footer-legal"><a href="contact-us.html" data-i="contactUs">Contact Us</a><a href="privacy-policy.html" data-i="privacyPolicy">Privacy Policy</a><a href="terms.html" data-i="terms">Terms &amp; Conditions</a><a href="location.html" data-i="locationTop">Location</a></div>
+</footer>
+<a class="wa" href="https://wa.me/201009756619" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" title="WhatsApp"><img src="assets/whatsapp.svg" alt="WhatsApp"></a>
+</div>
+<script>
+const T={
+en:{
+experiences:'Experiences',about:'About',video:'Video',monthly:'Training',payment:'Payment',customizationNav:'Customization',
+kicker:'SAHEIL EQUESTRIAN CLUB · BENI SUEF',heroTitle:'More than<br><em>riding.</em>',
+heroText:'A premium equestrian experience built around real riding, real horses and memorable adventures in Beni Suef.',
+rank:'★ SAHEIL #1 IN BENI SUEF',explore:'Explore Experiences ↗',training:'Training →',
+heroBadge:'Saheil #1 in Beni Suef',heroPlace:'Beni Suef · Egypt',
+experienceKicker:'THE PROGRAM',experienceTitle:'Pick your ride.',
+experienceIntro:'Three clear experiences. Tap any card to open its full page.',
+jumping:'Jumping',desert:'Desert Trips',free:'Free Riding',jumpingPrice:'350 EGP',desertPrice:'700 EGP',freePrice:'300 EGP',
+aboutKicker:'ABOUT SAHEIL',aboutTitle:'Ride.<br>Explore.<br>Grow.',
+aboutText:'Saheil Equestrian Club is a riding-first community in Beni Suef focused on training, horse experience and outdoor adventure.',
+videoKicker:'REAL CLUB MOMENT',videoTitle:'Inside Saheil.',
+videoText:'Watch a real moment from the club and feel the atmosphere before you visit.',
+watch:'Watch Video ↗',followTikTok:'TikTok · @.saheil.club',
+customKicker:'TRAINING',customTitle:'Monthly training.',
+customText:'Monthly training subscription for riders who want consistent progress.',
+monthlyLabel:'MONTHLY TRAINING',monthlyNote:'Monthly training subscription — 1500 EGP.',
+monthlyBook:'Book Training →',
+packageLabel1:'PACKAGE 01',packageLabel2:'PACKAGE 02',packageLabel3:'PACKAGE 03',pack8Title:'8 Sessions',pack10Title:'10 Sessions',pack12Title:'12 Sessions',pack8Price:'1500 EGP',pack10Price:'1900 EGP',pack12Price:'2100 EGP',packageUnit:'Monthly training package',packageBook:'Book ↗',
+customizationTitle:'Horses available.',customizationText:'There are horses available for customization. Contact us for details and availability.',
+payKicker:'ONLINE PAYMENT',payTitle:'Pay your way.',
+payIntro:'Available online payment methods.',
+vodafone:'Vodafone Cash',instaPay:'InstaPay',
+payNote:'Send the payment, keep the confirmation, then complete your booking.',
+continue:'Continue to Booking →',
+instagram:'Instagram',tiktok:'TikTok',facebook:'Facebook',
+footerText:'Saheil #1 in Beni Suef',contactTitle:'Contact',contactSub:'Reach Saheil in the way that suits you.',contactUs:'Contact Us',privacyPolicy:'Privacy Policy',terms:'Terms & Conditions',locationTop:'Location',login:'Login',signup:'Sign Up',location:'Location',locationSub:'Beni Suef · Google Maps',locationTitle:'Visit Saheil',locationText:'Beni Suef · in front of Al-Daawa Islamic Hospital · behind Shahrazad Hall',openLocation:'Open Location ↗',videoFallback:'Open the real TikTok video',openTikTok:'Open TikTok ↗'
+},
+ar:{
+experiences:'التجارب',about:'عن صهيل',video:'الفيديو',monthly:'التدريب',payment:'الدفع',customizationNav:'التخصيص',
+kicker:'نادي صهيل للفروسية · بني سويف',heroTitle:'أكتر من<br><em>مجرد ركوب.</em>',
+heroText:'تجربة فروسية مميزة في بني سويف تجمع بين الركوب الحقيقي والخيل والمغامرات.',
+rank:'★ صهيل رقم 1 في بني سويف',explore:'اكتشف التجارب ↗',training:'التدريب →',
+heroBadge:'صهيل رقم 1 في بني سويف',heroPlace:'بني سويف · مصر',
+experienceKicker:'البرامج',experienceTitle:'اختار تجربتك.',
+experienceIntro:'اختار التجربة اللي تناسبك واضغط على الكارت لفتح صفحتها.',
+jumping:'القفز',desert:'رحلات الصحراء',free:'ركوب حر',jumpingPrice:'350 جنيه',desertPrice:'700 جنيه',freePrice:'300 جنيه',
+aboutKicker:'عن صهيل',aboutTitle:'اركب.<br>استكشف.<br>انطلق.',
+aboutText:'نادي صهيل للفروسية في بني سويف يهتم بالتدريب والركوب وتجارب الخيل والمغامرات.',
+videoKicker:'لحظة حقيقية من النادي',videoTitle:'صهيل من الداخل.',
+videoText:'شاهد لحظة حقيقية من أجواء النادي قبل الزيارة.',
+watch:'شاهد الفيديو ↗',followTikTok:'تيك توك · @.saheil.club',
+customKicker:'التدريب',customTitle:'اشتراك التدريب الشهري',
+customText:'للتدريب المستمر وتحقيق تقدم ثابت مع الخيل.',
+monthlyLabel:'الاشتراك الشهري للتدريب',monthlyNote:'اشتراك التدريب الشهري — 1500 جنيه.',
+monthlyBook:'احجز التدريب →',
+packageLabel1:'باقة 01',packageLabel2:'باقة 02',packageLabel3:'باقة 03',pack8Title:'باقة 8 حصص',pack10Title:'باقة 10 حصص',pack12Title:'باقة 12 حصة',pack8Price:'1500 جنيه',pack10Price:'1900 جنيه',pack12Price:'2100 جنيه',packageUnit:'اشتراك تدريب شهري',packageBook:'احجز ↗',
+customizationTitle:'الخيل المتاحة.',customizationText:'يوجد خيل متاحة للتخصيص. تواصل معنا لمعرفة التفاصيل والخيل المتاحة.',
+payKicker:'الدفع أونلاين',payTitle:'ادفع بالطريقة المناسبة.',
+payIntro:'طرق الدفع المتاحة أونلاين.',
+vodafone:'فودافون كاش',instaPay:'إنستاباي',
+payNote:'حوّل المبلغ واحتفظ بالتأكيد ثم أكمل الحجز.',
+continue:'تابع إلى الحجز →',
+instagram:'إنستجرام',tiktok:'تيك توك',facebook:'فيسبوك',
+footerText:'صهيل رقم 1 في بني سويف',contactTitle:'التواصل',contactSub:'تواصل مع صهيل بالطريقة المناسبة لك.',contactUs:'تواصل معنا',privacyPolicy:'سياسة الخصوصية',terms:'الشروط والأحكام',locationTop:'اللوكيشن',login:'تسجيل الدخول',signup:'إنشاء حساب',location:'اللوكيشن',locationSub:'بني سويف · خرائط جوجل',locationTitle:'زورنا في صهيل',locationText:'بني سويف · أمام مستشفى الدعوة الإسلامية · خلف قاعة شهرزاد',openLocation:'افتح اللوكيشن ↗',videoFallback:'افتح فيديو تيك توك الحقيقي',openTikTok:'افتح تيك توك ↗'
+},
+fr:{
+experiences:'Expériences',about:'À propos',video:'Vidéo',monthly:'Mensuel',payment:'Paiement',customizationNav:'Personnalisation',
+kicker:'SAHEIL EQUESTRIAN CLUB · BENI SUEF',heroTitle:'Plus que<br><em>de l’équitation.</em>',
+heroText:'Une expérience équestre premium à Beni Suef autour du cheval, de l’entraînement et de l’aventure.',
+rank:'★ SAHEIL N°1 À BENI SUEF',explore:'Découvrir ↗',training:'Entraînement →',
+heroBadge:'Saheil N°1 à Beni Suef',heroPlace:'Beni Suef · Égypte',
+experienceKicker:'LE PROGRAMME',experienceTitle:'Choisissez votre expérience.',
+experienceIntro:'Trois expériences. Cliquez sur une carte pour ouvrir sa page.',
+jumping:'Saut',desert:'Sorties désert',free:'Balade libre',jumpingPrice:'350 EGP',desertPrice:'700 EGP',freePrice:'300 EGP',
+aboutKicker:'À PROPOS',aboutTitle:'Monter.<br>Explorer.<br>Grandir.',
+aboutText:'Un club équestre à Beni Suef dédié à l’entraînement, aux chevaux et à l’aventure.',
+videoKicker:'MOMENT RÉEL',videoTitle:'Dans Saheil.',
+videoText:'Découvrez une vraie ambiance du club avant votre visite.',
+watch:'Voir la vidéo ↗',followTikTok:'TikTok · @.saheil.club',
+customKicker:'ENTRAÎNEMENT',customTitle:'Entraînement mensuel',
+customText:'Abonnement mensuel pour progresser régulièrement.',
+monthlyLabel:'ABONNEMENT ENTRAÎNEMENT',monthlyNote:'Abonnement mensuel — 1500 EGP.',
+monthlyBook:'Réserver l’entraînement →',
+packageLabel1:'FORFAIT 01',packageLabel2:'FORFAIT 02',packageLabel3:'FORFAIT 03',pack8Title:'8 séances',pack10Title:'10 séances',pack12Title:'12 séances',pack8Price:'1500 EGP',pack10Price:'1900 EGP',pack12Price:'2100 EGP',packageUnit:'Forfait mensuel d’entraînement',packageBook:'Réserver ↗',
+customizationTitle:'Chevaux disponibles.',customizationText:'Des chevaux sont disponibles pour une personnalisation. Contactez-nous pour les détails et disponibilités.',
+payKicker:'PAIEMENT EN LIGNE',payTitle:'Payez à votre façon.',
+payIntro:'Options de paiement en ligne disponibles.',
+vodafone:'Vodafone Cash',instaPay:'InstaPay',
+payNote:'Envoyez le paiement, gardez la confirmation, puis terminez la réservation.',
+continue:'Continuer →',
+instagram:'Instagram',tiktok:'TikTok',facebook:'Facebook',
+footerText:'Saheil N°1 à Beni Suef',contactTitle:'Contact',contactSub:'Contactez Saheil de la manière qui vous convient.',contactUs:'Contact',privacyPolicy:'Politique de confidentialité',terms:'Conditions générales',locationTop:'Localisation',login:'Connexion',signup:'Créer un compte',location:'Localisation',locationSub:'Beni Suef · Google Maps',locationTitle:'Visitez Saheil',locationText:'Beni Suef · devant l’hôpital Al-Daawa · derrière la salle Shahrazad',openLocation:'Ouvrir la localisation ↗',videoFallback:'Ouvrir la vraie vidéo TikTok',openTikTok:'Ouvrir TikTok ↗'
+},
+de:{
+experiences:'Erlebnisse',about:'Über uns',video:'Video',monthly:'Monatlich',payment:'Zahlung',customizationNav:'Anpassung',
+kicker:'SAHEIL EQUESTRIAN CLUB · BENI SUEF',heroTitle:'Mehr als<br><em>nur Reiten.</em>',
+heroText:'Premium-Reiterlebnis in Beni Suef mit Training, Pferden und echten Abenteuern.',
+rank:'★ SAHEIL NR. 1 IN BENI SUEF',explore:'Erlebnisse entdecken ↗',training:'Training →',
+heroBadge:'Saheil Nr. 1 in Beni Suef',heroPlace:'Beni Suef · Ägypten',
+experienceKicker:'DAS PROGRAMM',experienceTitle:'Wähle dein Erlebnis.',
+experienceIntro:'Drei Erlebnisse. Klicke eine Karte für die Detailseite.',
+jumping:'Springen',desert:'Wüstentouren',free:'Freies Reiten',jumpingPrice:'350 EGP',desertPrice:'700 EGP',freePrice:'300 EGP',
+aboutKicker:'ÜBER SAHEIL',aboutTitle:'Reiten.<br>Entdecken.<br>Wachsen.',
+aboutText:'Ein Reitclub in Beni Suef mit Fokus auf Training, Pferdeerlebnis und Abenteuer.',
+videoKicker:'ECHTER CLUB-MOMENT',videoTitle:'Saheil erleben.',
+videoText:'Entdecke die echte Atmosphäre des Clubs vor deinem Besuch.',
+watch:'Video ansehen ↗',followTikTok:'TikTok · @.saheil.club',
+customKicker:'TRAINING',customTitle:'Monatliches Training',
+customText:'Monatliches Trainingsabo für kontinuierliche Fortschritte.',
+monthlyLabel:'TRAININGSABO',monthlyNote:'Monatliches Training — 1500 EGP.',
+monthlyBook:'Training buchen →',
+packageLabel1:'PAKET 01',packageLabel2:'PAKET 02',packageLabel3:'PAKET 03',pack8Title:'8 Einheiten',pack10Title:'10 Einheiten',pack12Title:'12 Einheiten',pack8Price:'1500 EGP',pack10Price:'1900 EGP',pack12Price:'2100 EGP',packageUnit:'Monatliches Trainingspaket',packageBook:'Buchen ↗',
+customizationTitle:'Verfügbare Pferde.',customizationText:'Pferde zur individuellen Auswahl sind verfügbar. Kontaktiere uns für Details und Verfügbarkeit.',
+payKicker:'ONLINE-ZAHLUNG',payTitle:'So kannst du zahlen.',
+payIntro:'Verfügbare Online-Zahlungsmethoden.',
+vodafone:'Vodafone Cash',instaPay:'InstaPay',
+payNote:'Zahlung senden, Bestätigung aufbewahren und Buchung abschließen.',
+continue:'Zur Buchung →',
+instagram:'Instagram',tiktok:'TikTok',facebook:'Facebook',
+footerText:'Saheil Nr. 1 in Beni Suef',contactTitle:'Kontakt',contactSub:'Kontaktiere Saheil auf deine bevorzugte Weise.',contactUs:'Kontakt',privacyPolicy:'Datenschutz',terms:'Allgemeine Geschäftsbedingungen',locationTop:'Standort',login:'Anmelden',signup:'Registrieren',location:'Standort',locationSub:'Beni Suef · Google Maps',locationTitle:'Saheil besuchen',locationText:'Beni Suef · vor dem Al-Daawa Krankenhaus · hinter Shahrazad Hall',openLocation:'Standort öffnen ↗',videoFallback:'Echtes TikTok-Video öffnen',openTikTok:'TikTok öffnen ↗'
+},
+es:{
+experiences:'Experiencias',about:'Nosotros',video:'Video',monthly:'Mensual',payment:'Pago',customizationNav:'Personalización',
+kicker:'SAHEIL EQUESTRIAN CLUB · BENI SUEF',heroTitle:'Mucho más<br><em>que montar.</em>',
+heroText:'Una experiencia ecuestre premium en Beni Suef con entrenamiento, caballos y aventuras reales.',
+rank:'★ SAHEIL N.º 1 EN BENI SUEF',explore:'Descubrir experiencias ↗',training:'Entrenamiento →',
+heroBadge:'Saheil N.º 1 en Beni Suef',heroPlace:'Beni Suef · Egipto',
+experienceKicker:'EL PROGRAMA',experienceTitle:'Elige tu experiencia.',
+experienceIntro:'Tres experiencias. Pulsa una tarjeta para abrir su página.',
+jumping:'Salto',desert:'Paseos por el desierto',free:'Paseo libre',jumpingPrice:'350 EGP',desertPrice:'700 EGP',freePrice:'300 EGP',
+aboutKicker:'SOBRE SAHEIL',aboutTitle:'Monta.<br>Explora.<br>Crece.',
+aboutText:'Un club ecuestre en Beni Suef centrado en entrenamiento, caballos y aventura.',
+videoKicker:'MOMENTO REAL',videoTitle:'Dentro de Saheil.',
+videoText:'Descubre el ambiente real del club antes de visitar.',
+watch:'Ver video ↗',followTikTok:'TikTok · @.saheil.club',
+customKicker:'ENTRENAMIENTO',customTitle:'Entrenamiento mensual',
+customText:'Suscripción mensual para progresar de forma constante.',
+monthlyLabel:'SUSCRIPCIÓN DE ENTRENAMIENTO',monthlyNote:'Entrenamiento mensual — 1500 EGP.',
+monthlyBook:'Reservar entrenamiento →',
+packageLabel1:'PAQUETE 01',packageLabel2:'PAQUETE 02',packageLabel3:'PAQUETE 03',pack8Title:'8 sesiones',pack10Title:'10 sesiones',pack12Title:'12 sesiones',pack8Price:'1500 EGP',pack10Price:'1900 EGP',pack12Price:'2100 EGP',packageUnit:'Paquete de entrenamiento mensual',packageBook:'Reservar ↗',
+customizationTitle:'Caballos disponibles.',customizationText:'Hay caballos disponibles para personalización. Contáctanos para conocer los detalles y la disponibilidad.',
+payKicker:'PAGO ONLINE',payTitle:'Paga como prefieras.',
+payIntro:'Métodos de pago online disponibles.',
+vodafone:'Vodafone Cash',instaPay:'InstaPay',
+payNote:'Envía el pago, guarda la confirmación y completa la reserva.',
+continue:'Continuar →',
+instagram:'Instagram',tiktok:'TikTok',facebook:'Facebook',
+footerText:'Saheil N.º 1 en Beni Suef',contactTitle:'Contacto',contactSub:'Contacta con Saheil de la forma que prefieras.',contactUs:'Contacto',privacyPolicy:'Política de privacidad',terms:'Términos y condiciones',locationTop:'Ubicación',login:'Iniciar sesión',signup:'Registrarse',location:'Ubicación',locationSub:'Beni Suef · Google Maps',locationTitle:'Visita Saheil',locationText:'Beni Suef · frente al Hospital Al-Daawa · detrás de Shahrazad Hall',openLocation:'Abrir ubicación ↗',videoFallback:'Abrir video real de TikTok',openTikTok:'Abrir TikTok ↗'
+}
+};
+const globe=document.getElementById('globe');const globeToggle=globe.querySelector('button');globeToggle.onclick=()=>{const open=globe.classList.toggle('open');globeToggle.setAttribute('aria-expanded',String(open));};document.addEventListener('click',e=>{if(!globe.contains(e.target)){globe.classList.remove('open');globeToggle.setAttribute('aria-expanded','false');}});
+function refreshAccountChip(){try{const user=JSON.parse(localStorage.getItem('saheil_user')||'null');const chip=document.getElementById('account-chip');if(chip&&user&&user.name){chip.textContent=user.name;chip.hidden=false;}}catch(e){}}
+function setLang(lang,fromMenu=false){const keepY=window.scrollY||window.pageYOffset||0;const d=T[lang]||T.en;document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.body.classList.toggle('rtl',lang==='ar');document.querySelectorAll('[data-i]').forEach(el=>{const k=el.dataset.i;if(d[k]!==undefined)el.innerHTML=d[k]});localStorage.setItem('saheil_lang',lang);globe.classList.remove('open');globeToggle.setAttribute('aria-expanded','false');if(fromMenu){try{globeToggle.focus({preventScroll:true});}catch(e){globeToggle.focus();}}requestAnimationFrame(()=>{if(Math.abs((window.scrollY||window.pageYOffset||0)-keepY)>2){window.scrollTo({left:window.scrollX||0,top:keepY,behavior:'auto'});}});}
+globe.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>setLang(b.dataset.lang,true));setLang(localStorage.getItem('saheil_lang')||'en');refreshAccountChip();
+
+
+</script>
+<script src="assets/whatsapp-gate.js"></script>
+</body></html>
